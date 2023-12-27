@@ -7,13 +7,15 @@ var userPattern = [];
 var gameStart = false;
 var level = 0;
 
+
+
 $(document).keypress(function(){
-    if (!started) {
+    if (!gameStart) {
         $("level-title").text("Level" + level);
         nextSequence();
         gameStart = true; 
     }
-}) 
+}); 
 
 
 
@@ -27,6 +29,7 @@ $(".btn").click(function(){
 
 
 
+
 function nextSequence(){
     userPattern=[];
     level++;
@@ -35,9 +38,17 @@ function nextSequence(){
     var randomColour = buttonColours[randomNumber];
     gamePattern.push(randomColour);
     console.log(gamePattern);
-    $("#" + randomColour).fadeIn(100).fadeOut(100).fadeIn(100);
-    playSound(randomColour);
-
+    function delayedLoop(i) {
+        if (i < gamePattern.length) {
+            var colour = gamePattern[i];
+            $("#" + colour).fadeIn(100).fadeOut(100).fadeIn(100);
+            playSound(colour);
+            setTimeout(function () {
+                delayedLoop(i + 1);
+            }, 500);
+        }
+    }
+    delayedLoop(0);
 }
 
 
