@@ -45,7 +45,7 @@ function nextSequence(){
             playSound(colour);
             setTimeout(function () {
                 delayedLoop(i + 1);
-            }, 500);
+            }, 150);
         }
     }
     delayedLoop(0);
